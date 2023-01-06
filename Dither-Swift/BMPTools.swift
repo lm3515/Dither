@@ -96,7 +96,7 @@ class BMPTools: NSObject {
         
         // 得到Pixel数组指针
         let pixels = buffer.bindMemory(to: Pixel.self, capacity: width * height)
-        DispatchQueue.concurrentPerform(iterations: height) { row in
+        for row in 0 ..< height { 
             for col in 0 ..< width {
                 let offset = Int(row * width + col)
 
@@ -138,7 +138,7 @@ class BMPTools: NSObject {
         let pixels = buffer.bindMemory(to: Pixel.self, capacity: width * height)
         let convert: [[UInt8]] = convertPixels(pixels: pixels, width: width, height: height, type: type)
         
-        DispatchQueue.concurrentPerform(iterations: height) { row in
+        for row in 0 ..< height { 
             for col in 0 ..< width {
                 let offset = row * width + col
                 if convert[row][col] == 0 {
@@ -173,7 +173,7 @@ class BMPTools: NSObject {
         // 创建一个二维数组，记录颜色值
         var result = dim(height, dim(width, UInt8(0)))
         
-        DispatchQueue.concurrentPerform(iterations: height) { row in
+        for row in 0 ..< height { 
             for col in 0 ..< width{
                 let offset = row * width + col
                 let index = findNearestColor(color: pixels[offset], palette: palette)
